@@ -1,0 +1,16 @@
+{
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "rules": {
+    "new-parens": true,
+    "no-arg": true,
+    "no-bitwise": true,
+    "no-conditional-assignment": true,
+    "no-consecutive-blank-lines": false,
+    "object-literal-sort-keys": false,
+    "no-empty-interface": false,
+    "jsx-self-close": false,
+    "jsx-boolean-value": false,
+    "no-console": false,
+    "ordered-imports": false
+  }
+}
