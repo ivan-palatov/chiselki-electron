@@ -1,10 +1,11 @@
 import {
-  Button,
   createMuiTheme,
   CssBaseline,
   MuiThemeProvider
 } from "@material-ui/core";
 import React from "react";
+import TitleBar from "./components/TitleBar";
+import Routes from "./Routes";
 
 interface IProps {}
 
@@ -15,9 +16,8 @@ const App: React.FC<IProps> = () => {
     <>
       <CssBaseline />
       <MuiThemeProvider theme={theme}>
-        <header>Шапка</header>
-        <main>HI THERE</main>
-        <Button color="primary">IT WORKS!</Button>
+        <TitleBar />
+        <Routes />
       </MuiThemeProvider>
     </>
   );

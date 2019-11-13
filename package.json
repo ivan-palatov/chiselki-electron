@@ -12,6 +12,8 @@
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
     "dist": "yarn compile && electron-builder",
+    "build-32": "electron-builder --ia32",
+    "build-64": "electron-builder",
     "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
   },
   "electronWebpack": {
@@ -21,8 +23,16 @@
       "@material-ui/icons"
     ]
   },
+  "build": {
+    "appId": "com.chiselki.app",
+    "productName": "Численные Методы",
+    "copyright": "Copyright © 2019 Ivan Palatov",
+    "win": {
+      "target": "portable"
+    }
+  },
   "dependencies": {
-    "@material-ui/core": "^4.6.0",
+    "@material-ui/core": "^4.6.1",
     "@material-ui/icons": "^4.5.1",
     "css-baseline": "^1.1.10",
     "react": "^16.11.0",

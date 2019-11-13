@@ -1,14 +1,13 @@
-import React from 'react';
-import { Route, Switch } from 'react-router';
+import React from "react";
+import { Route, Switch } from "react-router";
+import Index from "./pages/Index";
 
 interface IProps {}
 
 const Routes: React.FC<IProps> = () => {
   return (
     <Switch>
-      <Route path="/" strict>
-        <div>INDEX PAGE</div>
-      </Route>
+      <Route path="/" component={Index} />
     </Switch>
   );
 };
