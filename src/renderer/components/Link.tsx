@@ -1,18 +1,18 @@
-import { Link as MaterialLink } from "@material-ui/core";
-import React from "react";
-import { Link as RouterLink } from "react-router-dom";
+import MaterialLink from '@material-ui/core/Link';
+import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
 interface IProps {
   to: string;
   color?:
-    | "default"
-    | "error"
-    | "inherit"
-    | "primary"
-    | "secondary"
-    | "textPrimary"
-    | "textSecondary";
-  underline?: "none" | "hover" | "always";
+    | 'default'
+    | 'error'
+    | 'inherit'
+    | 'primary'
+    | 'secondary'
+    | 'textPrimary'
+    | 'textSecondary';
+  underline?: 'none' | 'hover' | 'always';
   variant?: string;
   classes?: {
     [x: string]: any;

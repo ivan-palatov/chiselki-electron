@@ -20,7 +20,8 @@
     "title": true,
     "whiteListedModules": [
       "@material-ui/core",
-      "@material-ui/icons"
+      "@material-ui/icons",
+      "react-router-dom"
     ]
   },
   "build": {
