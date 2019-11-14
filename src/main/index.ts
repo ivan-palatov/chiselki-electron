@@ -12,6 +12,8 @@ function createMainWindow() {
     webPreferences: { nodeIntegration: true },
     width: 800,
     height: 600,
+    minWidth: 540,
+    minHeight: 350,
     frame: false,
   });
 
@@ -30,6 +32,10 @@ function createMainWindow() {
       })
     );
   }
+
+  window.on('resize', () => {
+    console.log(window.getSize());
+  });
 
   window.on('closed', () => {
     mainWindow = null;

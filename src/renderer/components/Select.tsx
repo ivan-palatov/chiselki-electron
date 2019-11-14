@@ -52,8 +52,10 @@ const Select: React.FC<Props> = ({
   const theme = useTheme();
   const [field, meta] = useField<string[]>(props as any);
 
+  const isError = Boolean(meta.error && meta.touched);
+
   return (
-    <FormControl className={className} error={!!meta.error}>
+    <FormControl className={className} error={isError}>
       <InputLabel htmlFor={props.name}>{label}</InputLabel>
       <MaterialSelect
         {...field}
@@ -81,7 +83,7 @@ const Select: React.FC<Props> = ({
           </MenuItem>
         ))}
       </MaterialSelect>
-      <FormHelperText>{!meta.error ? helperText : meta.error}</FormHelperText>
+      <FormHelperText>{isError ? meta.error : helperText}</FormHelperText>
     </FormControl>
   );
 };

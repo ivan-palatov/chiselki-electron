@@ -7,8 +7,6 @@ import * as yup from 'yup';
 import Input from '../components/Input';
 import Select from '../components/Select';
 
-interface IProps {}
-
 const options = [
   {
     value: 'lrect',
@@ -72,7 +70,7 @@ const validationSchema = yup.object({
   quad: yup.array().required('Необходимо выбрать метод'),
 });
 
-const Integrals: React.FC<IProps> = () => {
+const Integrals: React.FC = () => {
   const classes = useStyles();
 
   return (

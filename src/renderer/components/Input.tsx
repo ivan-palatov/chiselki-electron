@@ -24,15 +24,17 @@ const Input: React.FC<Props> = ({
 }) => {
   const [field, meta] = useField<{}>(props);
 
+  const isError = Boolean(meta.error && meta.touched);
+
   return (
     <TextField
       {...field}
       className={className}
       type={type}
       inputProps={{ step, min, max }}
-      helperText={meta.error ? meta.error : helperText}
+      helperText={isError ? meta.error : helperText}
       label={label}
-      error={!!meta.error}
+      error={isError}
     />
   );
 };
