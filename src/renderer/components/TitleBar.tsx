@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme =>
     root: {
       height: 36,
       width: '100%',
+      zIndex: 1000,
       top: 0,
       overflow: 'hidden',
       position: 'fixed',
@@ -38,8 +39,10 @@ const useStyles = makeStyles(theme =>
       borderRadius: 0,
     },
     title: {
-      flexGrow: 1,
-      width: '100%',
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
     },
   })
 );
@@ -79,15 +82,17 @@ const TitleBar: React.FC<IProps> = () => {
       >
         Численные Методы
       </Typography>
-      <Button color="inherit" className={classes.button} onClick={minimize}>
-        <Minimize />
-      </Button>
-      <Button color="inherit" className={classes.button} onClick={minMax}>
-        {isMaximized ? <FullscreenExit /> : <Fullscreen />}
-      </Button>
-      <Button color="inherit" className={classes.exitButton} onClick={close}>
-        <Close />
-      </Button>
+      <span>
+        <Button color="inherit" className={classes.button} onClick={minimize}>
+          <Minimize />
+        </Button>
+        <Button color="inherit" className={classes.button} onClick={minMax}>
+          {isMaximized ? <FullscreenExit /> : <Fullscreen />}
+        </Button>
+        <Button color="inherit" className={classes.exitButton} onClick={close}>
+          <Close />
+        </Button>
+      </span>
     </div>
   );
 };

@@ -21,7 +21,8 @@
     "whiteListedModules": [
       "@material-ui/core",
       "@material-ui/icons",
-      "react-router-dom"
+      "react-router-dom",
+      "formik"
     ]
   },
   "build": {
@@ -36,12 +37,14 @@
     "@material-ui/core": "^4.6.1",
     "@material-ui/icons": "^4.5.1",
     "css-baseline": "^1.1.10",
+    "formik": "^2.0.4",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "source-map-support": "^0.5.16",
-    "typeface-roboto": "^0.0.75"
+    "typeface-roboto": "^0.0.75",
+    "yup": "^0.27.0"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.7.0",
@@ -49,6 +52,7 @@
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.9.4",
     "@types/react-router-dom": "^5.1.2",
+    "@types/yup": "^0.26.24",
     "electron": "7.1.1",
     "electron-builder": "^22.1.0",
     "electron-webpack": "^2.7.4",

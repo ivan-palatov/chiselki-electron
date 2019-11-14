@@ -11,16 +11,30 @@ import Routes from './Routes';
 
 interface IProps {}
 
-const theme = createMuiTheme({});
-
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles(theme =>
   createStyles({
     root: {
       paddingTop: 40,
       height: '100vh',
+      overflow: 'auto',
+      '&::-webkit-scrollbar': {
+        width: 10,
+      },
+      '&::-webkit-scrollbar-track': {
+        marginTop: 36,
+        background: theme.palette.background.default,
+      },
+      '&::-webkit-scrollbar-thumb': {
+        background: theme.palette.text.secondary,
+      },
+      '&::-webkit-scrollbar-thumb:hover': {
+        background: theme.palette.primary.dark,
+      },
     },
   })
 );
+
+const themeObject = createMuiTheme({});
 
 const App: React.FC<IProps> = () => {
   const classes = useStyles();
@@ -28,7 +42,7 @@ const App: React.FC<IProps> = () => {
   return (
     <>
       <CssBaseline />
-      <MuiThemeProvider theme={theme}>
+      <MuiThemeProvider theme={themeObject}>
         <TitleBar />
         <main className={classes.root}>
           <Routes />
