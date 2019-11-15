@@ -1,10 +1,16 @@
 import { Func } from '../../common/Func';
-import { IQuadParams } from '../makeParams';
+import { IQuadParams, makeParams } from '../makeParams';
 import { Base } from './Base';
 
 export class ThreeEights extends Base {
-  constructor(f: Func, params: IQuadParams) {
-    super(f, params);
+  constructor(f: Func, { n, a, b }: IQuadParams) {
+    super(
+      f,
+      makeParams(n % 3 === 0 ? n : (n + 1) % 3 === 0 ? n + 1 : n + 2, a, b)
+    );
+
+    this.label = 'Формула трёх восьмых';
+    this.needRn = true;
   }
 
   public calc() {

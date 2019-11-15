@@ -5,8 +5,11 @@ import {
   MuiThemeProvider,
 } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
+// @ts-ignore
+import 'katex/dist/katex.min.css';
 import React from 'react';
 import TitleBar from './components/TitleBar';
+import './main.css';
 import Routes from './Routes';
 
 interface IProps {}

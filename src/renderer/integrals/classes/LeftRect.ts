@@ -5,6 +5,8 @@ import { Base } from './Base';
 export class LeftRect extends Base {
   constructor(f: Func, params: IQuadParams) {
     super(f, params);
+    this.label = 'Формула левого прямоугольника';
+    this.isGraphable = true;
   }
 
   public calc() {

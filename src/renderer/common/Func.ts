@@ -5,6 +5,10 @@ export class Func {
 
   constructor(private readonly f: string) {}
 
+  public get fString() {
+    return this.f;
+  }
+
   public LaTeX(f = this.f) {
     return simplify(f).toTex();
   }

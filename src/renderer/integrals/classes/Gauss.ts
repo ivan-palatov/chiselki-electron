@@ -42,6 +42,10 @@ export class Gauss extends Base {
 
   constructor(f: Func, params: IQuadParams) {
     super(f, params);
+    this.label = 'Формула Гаусса';
+
+    this.n = params.n <= 4 ? 4 : params.n >= 7 ? 7 : 5;
+
     this.coefs = coefs.find(c => c.n === this.n)!;
 
     this.xArr = [...Array(this.n)].map(

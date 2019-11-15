@@ -4,12 +4,13 @@ import { IQuadParams } from '../makeParams';
 export class Base {
   public label: string;
   public isGraphable: boolean;
-  public readonly n: number;
+  public needRn: boolean;
+  public n: number;
+  public readonly a: number;
+  public readonly b: number;
 
   protected readonly xArr: number[];
   protected readonly h: number;
-  protected readonly a: number;
-  protected readonly b: number;
 
   constructor(protected readonly f: Func, params: IQuadParams) {
     this.n = params.n;
@@ -20,6 +21,7 @@ export class Base {
 
     this.label = 'Base class';
     this.isGraphable = false;
+    this.needRn = false;
   }
 
   public calc(): number {

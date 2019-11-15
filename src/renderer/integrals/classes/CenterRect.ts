@@ -5,7 +5,8 @@ import { Base } from './Base';
 export class CenterRect extends Base {
   constructor(f: Func, params: IQuadParams) {
     super(f, params);
-    this.label = '';
+    this.label = 'Формула центрального прямоугольника';
+    this.isGraphable = true;
   }
 
   public calc() {

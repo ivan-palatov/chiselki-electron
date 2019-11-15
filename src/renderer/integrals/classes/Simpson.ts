@@ -1,10 +1,13 @@
 import { Func } from '../../common/Func';
-import { IQuadParams } from '../makeParams';
+import { IQuadParams, makeParams } from '../makeParams';
 import { Base } from './Base';
 
 export class Simpson extends Base {
-  constructor(f: Func, params: IQuadParams) {
-    super(f, params);
+  constructor(f: Func, { n, a, b }: IQuadParams) {
+    super(f, makeParams(n % 2 === 0 ? n : n + 1, a, b));
+
+    this.label = 'Формула Симпсона';
+    this.needRn = true;
   }
 
   public calc() {

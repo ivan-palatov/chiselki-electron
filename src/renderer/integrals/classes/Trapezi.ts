@@ -5,6 +5,10 @@ import { Base } from './Base';
 export class Trapezi extends Base {
   constructor(f: Func, params: IQuadParams) {
     super(f, params);
+    this.label = 'Формула трапеции';
+    this.needRn = true;
+
+    this.isGraphable = true;
   }
 
   public calc() {
