@@ -1,5 +1,4 @@
-import { FormikHelpers } from 'formik';
-import { Func } from '../common/Func';
+import { Base } from './classes/Base';
 import { CenterRect } from './classes/CenterRect';
 import { Gauss } from './classes/Gauss';
 import { LeftRect } from './classes/LeftRect';
@@ -7,31 +6,8 @@ import { RightRect } from './classes/RightRect';
 import { Simpson } from './classes/Simpson';
 import { ThreeEights } from './classes/ThreeEights';
 import { Trapezi } from './classes/Trapezi';
-import { makeParams } from './makeParams';
 
-interface IData {
-  f: string;
-  a: number;
-  b: number;
-  n: number;
-  quad: string[];
-}
-
-export function formHandler(
-  { f, a, b, n, quad }: IData,
-  helpers: FormikHelpers<IData>
-) {
-  const params = makeParams(n, a, b);
-  const func = new Func(f);
-
-  const quadArray: RightRect[] = [];
-  for (const q of quad) {
-    const Quad = createQuad(q);
-    quadArray.push(new Quad(func, params));
-  }
-}
-
-function createQuad(q: string) {
+export function createQuad(q: string): typeof Base {
   switch (q) {
     case 'lrect':
       return LeftRect;

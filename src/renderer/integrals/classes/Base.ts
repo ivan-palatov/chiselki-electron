@@ -2,9 +2,12 @@ import { Func } from '../../common/Func';
 import { IQuadParams } from '../makeParams';
 
 export class Base {
+  public label: string;
+  public isGraphable: boolean;
+  public readonly n: number;
+
   protected readonly xArr: number[];
   protected readonly h: number;
-  protected readonly n: number;
   protected readonly a: number;
   protected readonly b: number;
 
@@ -14,6 +17,9 @@ export class Base {
     this.b = params.b;
     this.h = params.h;
     this.xArr = params.xArr;
+
+    this.label = 'Base class';
+    this.isGraphable = false;
   }
 
   public calc(): number {

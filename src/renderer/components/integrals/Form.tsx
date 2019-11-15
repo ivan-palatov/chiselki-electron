@@ -1,9 +1,10 @@
 import { createStyles, makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { Form as FormikForm, Formik } from 'formik';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import * as yup from 'yup';
-import { formHandler } from '../../integrals/formHandler';
+import { useStore } from '../../stores/RootContext';
 import Input from '../Input';
 import Select from '../Select';
 
@@ -44,6 +45,7 @@ const useStyles = makeStyles(theme =>
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
+      marginBottom: theme.spacing(3),
     },
     input: {
       width: 400,
@@ -75,8 +77,9 @@ const validationSchema = yup.object({
   quad: yup.array().required('Необходимо выбрать метод'),
 });
 
-const Form: React.FC = () => {
+const Form = observer(function FormComponent() {
   const classes = useStyles();
+  const { integralStore } = useStore();
 
   return (
     <Formik
@@ -88,7 +91,7 @@ const Form: React.FC = () => {
         quad: [] as string[],
       }}
       validationSchema={validationSchema}
-      onSubmit={formHandler}
+      onSubmit={integralStore.handleSubmit}
     >
       {data => (
         <FormikForm className={classes.root} noValidate>
@@ -140,11 +143,10 @@ const Form: React.FC = () => {
               Сбросить
             </Button>
           </div>
-          <pre>{JSON.stringify(data, undefined, 2)}</pre>
         </FormikForm>
       )}
     </Formik>
   );
-};
+});
 
 export default Form;

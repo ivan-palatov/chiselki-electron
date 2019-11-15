@@ -5,6 +5,7 @@ import { Base } from './Base';
 export class CenterRect extends Base {
   constructor(f: Func, params: IQuadParams) {
     super(f, params);
+    this.label = '';
   }
 
   public calc() {

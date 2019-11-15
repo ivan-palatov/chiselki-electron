@@ -2,6 +2,7 @@ import { createStyles, makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import Form from '../components/integrals/Form';
+import Solution from '../components/integrals/Solution';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -22,6 +23,7 @@ const Integrals: React.FC = () => {
         Вычисление Интегралов
       </Typography>
       <Form />
+      <Solution />
     </div>
   );
 };
