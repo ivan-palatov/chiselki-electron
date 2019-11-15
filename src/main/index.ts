@@ -33,10 +33,6 @@ function createMainWindow() {
     );
   }
 
-  window.on('resize', () => {
-    console.log(window.getSize());
-  });
-
   window.on('closed', () => {
     mainWindow = null;
   });
