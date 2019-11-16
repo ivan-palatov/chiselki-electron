@@ -32,7 +32,7 @@ const Index: React.FC<IProps> = () => {
       <Link to="/integrals" variant="h6">
         Вычисление интегралов
       </Link>
-      <Link to="/" variant="h6">
+      <Link to="/equations" variant="h6">
         Нахождение корней уравнений
       </Link>
     </div>

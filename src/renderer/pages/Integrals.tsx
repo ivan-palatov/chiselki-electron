@@ -1,10 +1,10 @@
 import { createStyles, makeStyles } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import Form from '../components/integrals/Form';
 import Plot from '../components/integrals/Plot';
 import Solution from '../components/integrals/Solution';
+import Title from '../components/Title';
 import { useStore } from '../stores/RootContext';
 
 const useStyles = makeStyles(theme =>
@@ -26,9 +26,7 @@ const Integrals = observer<IProps>(function IntegralsComponent() {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Вычисление Интегралов
-      </Typography>
+      <Title title="Вычисление интегралов" />
       <Form />
       {integralStore.isSubmitted && <Plot />}
       {integralStore.quads.map(quad => (

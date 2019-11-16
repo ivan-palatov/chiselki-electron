@@ -7,8 +7,8 @@ import { useStore } from '../../stores/RootContext';
 const useStyles = makeStyles(theme =>
   createStyles({
     root: {
-      width: '100%',
-      height: '100%',
+      width: '90%',
+      height: '90%',
       marginBottom: theme.spacing(2),
     },
   })
@@ -30,10 +30,14 @@ const Plot = observer(function PlotComponent() {
           ),
         ]}
         layout={{
-          title: 'График подинтегральной функции',
+          title: {
+            text: 'График подинтегральной функции',
+            font: { family: 'Roboto' },
+          },
           xaxis: { title: 'x' },
           yaxis: { title: 'y' },
           autosize: true,
+          legend: { font: { family: 'Roboto' } },
         }}
       />
     </div>

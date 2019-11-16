@@ -23,8 +23,8 @@ const useStyles = makeStyles(theme =>
       height: '100%',
     },
     plot: {
-      width: '100%',
-      height: '100%',
+      width: '90%',
+      height: '90%',
     },
   })
 );
@@ -71,10 +71,14 @@ const Solution = observer<IProps>(function SolutionComponent({ quad }) {
             ...quad.getPlotData(),
           ]}
           layout={{
-            title: 'Геометрическая интерпритация',
+            title: {
+              text: 'Геометрическая интерпрeтация',
+              font: { family: 'Roboto' },
+            },
             xaxis: { title: 'x' },
             yaxis: { title: 'y' },
             autosize: true,
+            legend: { font: { family: 'Roboto' } },
           }}
           useResizeHandler
         />
