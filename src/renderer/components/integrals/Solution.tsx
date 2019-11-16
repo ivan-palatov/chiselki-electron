@@ -1,9 +1,10 @@
-import { createStyles, makeStyles } from '@material-ui/core';
+import { Button, createStyles, makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { useState } from 'react';
 // @ts-ignore
 import { BlockMath } from 'react-katex';
+import Plot from 'react-plotly.js';
 import { Base } from '../../integrals/classes/Base';
 import { useStore } from '../../stores/RootContext';
 
@@ -18,6 +19,12 @@ const useStyles = makeStyles(theme =>
       flexDirection: 'column',
       alignItems: 'center',
       marginBottom: theme.spacing(3),
+      width: '100%',
+      height: '100%',
+    },
+    plot: {
+      width: '100%',
+      height: '100%',
     },
   })
 );
@@ -25,6 +32,11 @@ const useStyles = makeStyles(theme =>
 const Solution = observer<IProps>(function SolutionComponent({ quad }) {
   const classes = useStyles();
   const { integralStore } = useStore();
+  const [show, setShow] = useState(false);
+
+  function toggleShow() {
+    setShow(s => !s);
+  }
 
   return (
     <div className={classes.root}>
@@ -38,7 +50,7 @@ const Solution = observer<IProps>(function SolutionComponent({ quad }) {
         <BlockMath>
           {String.raw`\int_{${quad.a}}^{${
             quad.b
-          }}${integralStore.f!.LaTeX()}\,dx = ${quad.calc()}`}
+          }}${integralStore.f!.LaTeX()}\,dx \approx ${quad.calc()}`}
         </BlockMath>
       </Typography>
       {quad.needRn && (
@@ -47,7 +59,25 @@ const Solution = observer<IProps>(function SolutionComponent({ quad }) {
         </Typography>
       )}
       {quad.isGraphable && (
-        <div>Почти график функции</div>
+        <Button variant="contained" color="primary" onClick={toggleShow}>
+          {show ? 'Скрыть график' : 'Показать график'}
+        </Button>
+      )}
+      {show && (
+        <Plot
+          className={classes.plot}
+          data={[
+            integralStore.f!.getPlotData(quad.a - 0.1, quad.b + 0.1),
+            ...quad.getPlotData(),
+          ]}
+          layout={{
+            title: 'Геометрическая интерпритация',
+            xaxis: { title: 'x' },
+            yaxis: { title: 'y' },
+            autosize: true,
+          }}
+          useResizeHandler
+        />
       )}
     </div>
   );

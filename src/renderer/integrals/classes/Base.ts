@@ -1,3 +1,4 @@
+import { PlotData } from 'plotly.js';
 import { Func } from '../../common/Func';
 import { IQuadParams } from '../makeParams';
 
@@ -30,5 +31,9 @@ export class Base {
 
   public calcRn(): number {
     return 0;
+  }
+
+  public getPlotData(): Array<Partial<PlotData>> {
+    return [];
   }
 }

@@ -19,9 +19,18 @@ export class IntegralStore {
   @observable
   public f: Func | null = null;
 
+  @observable
+  public range: [number, number] = [0, 0];
+
+  @observable
+  public isSubmitted = false;
+
   @action.bound
   public handleSubmit({ f, n, a, b, quad }: IData) {
     this.quads = [];
+    this.isSubmitted = true;
+    this.range = [a, b];
+
     this.f = new Func(f);
     const params = makeParams(n, a, b);
 

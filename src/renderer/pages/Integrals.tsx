@@ -3,6 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import Form from '../components/integrals/Form';
+import Plot from '../components/integrals/Plot';
 import Solution from '../components/integrals/Solution';
 import { useStore } from '../stores/RootContext';
 
@@ -29,6 +30,7 @@ const Integrals = observer<IProps>(function IntegralsComponent() {
         Вычисление Интегралов
       </Typography>
       <Form />
+      {integralStore.isSubmitted && <Plot />}
       {integralStore.quads.map(quad => (
         <Solution quad={quad} key={quad.label} />
       ))}
