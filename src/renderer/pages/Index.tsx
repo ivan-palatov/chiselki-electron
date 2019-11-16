@@ -26,7 +26,7 @@ const Index: React.FC<IProps> = () => {
       <Typography variant="h4" component="h1" gutterBottom>
         Выберите раздел
       </Typography>
-      <Link to="/" variant="h6">
+      <Link to="/interpolation" variant="h6">
         Восстановление функции по узлам интерполяции
       </Link>
       <Link to="/integrals" variant="h6">

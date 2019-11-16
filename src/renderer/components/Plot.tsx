@@ -1,37 +1,35 @@
 import { createStyles, makeStyles } from '@material-ui/core';
 import { observer } from 'mobx-react-lite';
+import { PlotData } from 'plotly.js';
 import React from 'react';
 import Plotly from 'react-plotly.js';
-import { useStore } from '../../stores/RootContext';
+
+interface IProps {
+  data: Array<Partial<PlotData>>;
+  title: string;
+}
 
 const useStyles = makeStyles(theme =>
   createStyles({
     root: {
-      width: '90%',
-      height: '90%',
-      marginBottom: theme.spacing(2),
+      width: '95%',
+      height: '95%',
     },
   })
 );
 
-const Plot = observer(function PlotComponent() {
+const Plot = observer<IProps>(function PlotComponent({ data, title }) {
   const classes = useStyles();
-  const { integralStore } = useStore();
 
   return (
     <div className={classes.root}>
       <Plotly
+        data={data}
         className={classes.root}
         useResizeHandler
-        data={[
-          integralStore.f!.getPlotData(
-            integralStore.range[0] - 0.1,
-            integralStore.range[1] + 0.1
-          ),
-        ]}
         layout={{
           title: {
-            text: 'График подинтегральной функции',
+            text: title,
             font: { family: 'Roboto' },
           },
           xaxis: { title: 'x' },

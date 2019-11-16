@@ -2,8 +2,8 @@ import { createStyles, makeStyles } from '@material-ui/core';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import Form from '../components/integrals/Form';
-import Plot from '../components/integrals/Plot';
 import Solution from '../components/integrals/Solution';
+import Plot from '../components/Plot';
 import Title from '../components/Title';
 import { useStore } from '../stores/RootContext';
 
@@ -28,7 +28,17 @@ const Integrals = observer<IProps>(function IntegralsComponent() {
     <div className={classes.root}>
       <Title title="Вычисление интегралов" />
       <Form />
-      {integralStore.isSubmitted && <Plot />}
+      {integralStore.isSubmitted && (
+        <Plot
+          title="График подинтегральной функции"
+          data={[
+            integralStore.f!.getPlotData(
+              integralStore.range[0] - 0.1,
+              integralStore.range[1] + 0.1
+            ),
+          ]}
+        />
+      )}
       {integralStore.quads.map(quad => (
         <Solution quad={quad} key={quad.label} />
       ))}

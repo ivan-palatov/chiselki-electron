@@ -4,9 +4,9 @@ import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 // @ts-ignore
 import { BlockMath } from 'react-katex';
-import Plot from 'react-plotly.js';
 import { Base } from '../../integrals/classes/Base';
 import { useStore } from '../../stores/RootContext';
+import Plot from '../Plot';
 
 interface IProps {
   quad: Base;
@@ -65,22 +65,11 @@ const Solution = observer<IProps>(function SolutionComponent({ quad }) {
       )}
       {show && (
         <Plot
-          className={classes.plot}
           data={[
             integralStore.f!.getPlotData(quad.a - 0.1, quad.b + 0.1),
             ...quad.getPlotData(),
           ]}
-          layout={{
-            title: {
-              text: 'Геометрическая интерпрeтация',
-              font: { family: 'Roboto' },
-            },
-            xaxis: { title: 'x' },
-            yaxis: { title: 'y' },
-            autosize: true,
-            legend: { font: { family: 'Roboto' } },
-          }}
-          useResizeHandler
+          title="Геометрическая интерпрeтация"
         />
       )}
     </div>
