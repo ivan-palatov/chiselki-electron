@@ -2,9 +2,22 @@ import { Button, createStyles, makeStyles } from '@material-ui/core';
 import { Form as FormikForm, Formik } from 'formik';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import * as yup from 'yup';
+import { equationMethods } from '../../stores/EquationStore';
+import { useStore } from '../../stores/RootContext';
 import Input from '../Input';
+import Select from '../Select';
 
-interface IProps {}
+const validationSchema = yup.object({
+  f: yup.string().required('Необходимо указать функцию f(x)'),
+  a: yup
+    .number()
+    .lessThan(yup.ref('b'), 'Нижнее значение должно быть меньше верхнего'),
+  b: yup
+    .number()
+    .moreThan(yup.ref('a'), 'Верхнее значение должно быть больше нижнего'),
+  eps: yup.number().positive('&#949; должно быть положительным'),
+});
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -26,15 +39,21 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-const Form = observer<IProps>(function FormComponent() {
+const Form = observer(function FormComponent() {
   const classes = useStyles();
+  const { equationStore } = useStore();
 
   return (
     <Formik
-      initialValues={{ f: 'x^3+3*x^2+6*x-1', a: 0, b: 1, eps: 1e-6 }}
-      onSubmit={data => {
-        console.log(data);
+      initialValues={{
+        f: 'x^3+3*x^2+6*x-1',
+        a: 0,
+        b: 1,
+        eps: 1e-6,
+        type: 'dichotomy',
       }}
+      validationSchema={validationSchema}
+      onSubmit={equationStore.handleSubmit}
     >
       {data => (
         <FormikForm noValidate className={classes.root}>
@@ -62,6 +81,13 @@ const Form = observer<IProps>(function FormComponent() {
             type="number"
             min={0}
             className={classes.input}
+          />
+          <Select
+            name="type"
+            type="select"
+            label="Метод вычисления"
+            className={classes.input}
+            options={equationMethods}
           />
           <div className={classes.buttonsContainer}>
             <Button type="submit" color="primary" variant="contained">
