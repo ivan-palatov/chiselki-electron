@@ -6,7 +6,7 @@ import React from 'react';
 import * as yup from 'yup';
 import { useStore } from '../../stores/RootContext';
 import Input from '../Input';
-import Select from '../Select';
+import MultiSelect from '../MultiSelect';
 
 const options = [
   {
@@ -124,7 +124,7 @@ const Form = observer(function FormComponent() {
             max={100000}
             className={classes.input}
           />
-          <Select
+          <MultiSelect
             label="Метод(ы) расчёта интеграла"
             name="quad"
             multiple

@@ -36,6 +36,7 @@ const Plot = observer<IProps>(function PlotComponent({ data, title }) {
           yaxis: { title: 'y' },
           autosize: true,
           legend: { font: { family: 'Roboto' } },
+          dragmode: 'pan',
         }}
       />
     </div>

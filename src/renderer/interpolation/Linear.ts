@@ -1,10 +1,9 @@
 import { range } from 'mathjs';
 import { PlotData } from 'plotly.js';
-import { calcFactorial } from '../common/calcFactorial';
 import { Func } from '../common/Func';
 
-export class Lagrange {
-  public name = 'lagr';
+export class Linear {
+  public name = 'linear';
 
   private readonly h: number;
   private readonly arr: Array<{ x: number; y: number }>;
@@ -32,7 +31,7 @@ export class Lagrange {
       x: this.points.x,
       y: this.points.y,
       type: 'scatter',
-      name: 'Многочлен Лагранжа',
+      name: 'Линейный сплайн',
     } as Partial<PlotData>;
   }
 
@@ -47,36 +46,14 @@ export class Lagrange {
     } as Partial<PlotData>;
   }
 
-  public getTheoreticalRnData() {
-    const max = Math.max(
-      ...this.points.x.map(x =>
-        Math.abs(this.f.getDerivativeValue(x, this.n + 1))
-      )
-    );
-    const fact = calcFactorial(this.n + 1);
+  private getValueInPoint(xi: number) {
+    const highIndex = this.arr.findIndex(({ x }) => x + this.h > xi) + 1;
 
-    return {
-      x: this.points.x,
-      y: this.points.x.map(
-        x =>
-          (max / fact) *
-          Math.abs(this.arr.reduce((acc, { x: xi }) => acc * (x - xi), 1))
-      ),
-      type: 'scatter',
-      name: 'Теор. погр.',
-    } as Partial<PlotData>;
-  }
-
-  private multiply(fi: number, i: number, xi: number) {
-    const tmpArr = this.arr.slice();
-    tmpArr.splice(i, 1);
-    return tmpArr.reduce((acc, { x }) => (acc * (fi - x)) / (xi - x), 1);
-  }
-
-  private getValueInPoint(fi: number) {
-    return this.arr.reduce(
-      (acc, { x, y }, i) => acc + y * this.multiply(fi, i, x),
-      0
+    return (
+      this.arr[highIndex].y +
+      ((this.arr[highIndex].x - xi) *
+        (this.arr[highIndex - 1].y - this.arr[highIndex].y)) /
+        this.h
     );
   }
 }

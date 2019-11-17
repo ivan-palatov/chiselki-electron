@@ -2,7 +2,7 @@ import { createStyles, makeStyles } from '@material-ui/core';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import Form from '../components/interpolation/Form';
-import LagrPlot from '../components/interpolation/LagrPlot';
+import InrerpolationPlot from '../components/interpolation/InterpolationPlot';
 import Title from '../components/Title';
 import { useStore } from '../stores/RootContext';
 
@@ -25,7 +25,7 @@ const Interpolation = observer(function InterpolationComponent() {
     <div className={classes.root}>
       <Title title="Интерполирование" />
       <Form />
-      {interpStore.data?.type === 'lagr' && <LagrPlot />}
+      {interpStore.isSubmitted && <InrerpolationPlot />}
     </div>
   );
 });

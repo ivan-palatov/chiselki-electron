@@ -1,9 +1,19 @@
-import { Button, createStyles, makeStyles } from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import { Form as FormikForm, Formik } from 'formik';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import * as yup from 'yup';
 import { useStore } from '../../stores/RootContext';
 import Input from '../Input';
+import Select from '../Select';
+
+const options = [
+  { value: 'lagr', label: 'Метод Лагранжа' },
+  { value: 'gauss', label: 'Метод Гаусса' },
+  { value: 'linear', label: 'Линейный сплайн' },
+  { value: 'quadratic', label: 'Кубический сплайн' },
+];
 
 interface IProps {}
 
@@ -27,6 +37,20 @@ const useStyles = makeStyles(theme =>
   })
 );
 
+const validationSchema = yup.object({
+  f: yup.string().required('Необходимо указать функцию'),
+  a: yup
+    .number()
+    .lessThan(yup.ref('b'), 'Начало отрезка должно быть меньше конца'),
+  b: yup
+    .number()
+    .moreThan(yup.ref('a'), 'Конец отрезка должен быть больше начала'),
+  n: yup
+    .number()
+    .integer('Число должно быть целым')
+    .moreThan(0, 'Число должно быть больше нуля'),
+});
+
 const Form = observer<IProps>(function FormComponent() {
   const classes = useStyles();
   const { interpStore } = useStore();
@@ -40,6 +64,7 @@ const Form = observer<IProps>(function FormComponent() {
         n: 3,
         type: 'lagr',
       }}
+      validationSchema={validationSchema}
       onSubmit={interpStore.handleSubmit}
     >
       {data => (
@@ -67,6 +92,13 @@ const Form = observer<IProps>(function FormComponent() {
             name="n"
             type="number"
             className={classes.input}
+          />
+          <Select
+            name="type"
+            type="select"
+            className={classes.input}
+            label="Метод инерполирования"
+            options={options}
           />
           <div className={classes.buttonsContainer}>
             <Button type="submit" color="primary" variant="contained">
