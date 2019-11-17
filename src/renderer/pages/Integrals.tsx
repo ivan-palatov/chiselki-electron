@@ -1,6 +1,7 @@
 import { createStyles, makeStyles } from '@material-ui/core';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { withRouter } from 'react-router';
 import Form from '../components/integrals/Form';
 import Solution from '../components/integrals/Solution';
 import Plot from '../components/Plot';
@@ -46,4 +47,4 @@ const Integrals = observer<IProps>(function IntegralsComponent() {
   );
 });
 
-export default Integrals;
+export default withRouter(Integrals);

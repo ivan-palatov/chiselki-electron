@@ -1,6 +1,7 @@
 import { createStyles, makeStyles } from '@material-ui/core';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { withRouter } from 'react-router';
 import Form from '../components/interpolation/Form';
 import InrerpolationPlot from '../components/interpolation/InterpolationPlot';
 import Title from '../components/Title';
@@ -30,4 +31,4 @@ const Interpolation = observer(function InterpolationComponent() {
   );
 });
 
-export default Interpolation;
+export default withRouter(Interpolation);

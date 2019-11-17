@@ -25,6 +25,7 @@
       "@material-ui/core",
       "@material-ui/icons",
       "react-router-dom",
+      "react-router",
       "formik",
       "mobx",
       "mobx-react-lite",
@@ -37,7 +38,8 @@
     "productName": "Численные Методы",
     "copyright": "Copyright © 2019 Ivan Palatov",
     "win": {
-      "target": "portable"
+      "target": "portable",
+      "icon": "static/installerIcon.ico"
     }
   },
   "dependencies": {

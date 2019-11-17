@@ -7,9 +7,8 @@ import Fullscreen from '@material-ui/icons/FullscreenOutlined';
 import Minimize from '@material-ui/icons/MinimizeOutlined';
 import Placeholder from '@material-ui/icons/PlaceTwoTone';
 import { remote } from 'electron';
+import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
-
-interface IProps {}
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -55,7 +54,7 @@ function close() {
   remote.app.quit();
 }
 
-const TitleBar: React.FC<IProps> = () => {
+const TitleBar = observer(() => {
   const classes = useStyles();
   const [isMaximized, setIsMaximized] = useState(false);
 
@@ -95,6 +94,6 @@ const TitleBar: React.FC<IProps> = () => {
       </span>
     </div>
   );
-};
+});
 
 export default TitleBar;

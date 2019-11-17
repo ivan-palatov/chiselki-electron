@@ -1,6 +1,7 @@
 import { createStyles, makeStyles } from '@material-ui/core';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { withRouter } from 'react-router';
 import Form from '../components/equations/Form';
 import Solution from '../components/equations/Solution';
 import Plot from '../components/Plot';
@@ -44,4 +45,4 @@ const Equations = observer<IProps>(function EquationsComponent() {
   );
 });
 
-export default Equations;
+export default withRouter(Equations);

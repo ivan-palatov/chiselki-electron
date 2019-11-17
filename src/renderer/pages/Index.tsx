@@ -1,9 +1,9 @@
 import { createStyles, makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { withRouter } from 'react-router';
 import Link from '../components/Link';
-
-interface IProps {}
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -13,12 +13,11 @@ const useStyles = makeStyles(theme =>
       alignItems: 'center',
       justifyContent: 'center',
       height: '100%',
-      // overflowY: "clip"
     },
   })
 );
 
-const Index: React.FC<IProps> = () => {
+const Index = observer(() => {
   const classes = useStyles();
 
   return (
@@ -37,6 +36,6 @@ const Index: React.FC<IProps> = () => {
       </Link>
     </div>
   );
-};
+});
 
-export default Index;
+export default withRouter(Index);

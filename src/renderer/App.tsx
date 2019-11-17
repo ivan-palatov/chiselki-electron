@@ -7,12 +7,12 @@ import {
 import CssBaseline from '@material-ui/core/CssBaseline';
 // @ts-ignore
 import 'katex/dist/katex.min.css';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { withRouter } from 'react-router';
 import TitleBar from './components/TitleBar';
 import './main.css';
 import Routes from './Routes';
-
-interface IProps {}
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme =>
 
 const themeObject = createMuiTheme({});
 
-const App: React.FC<IProps> = () => {
+const App = observer(() => {
   const classes = useStyles();
 
   return (
@@ -53,6 +53,6 @@ const App: React.FC<IProps> = () => {
       </MuiThemeProvider>
     </>
   );
-};
+});
 
-export default App;
+export default withRouter(App);

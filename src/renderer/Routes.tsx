@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Route, Switch } from 'react-router';
 import Equations from './pages/Equations';
@@ -5,9 +6,7 @@ import Index from './pages/Index';
 import Integrals from './pages/Integrals';
 import Interpolation from './pages/Interpolation';
 
-interface IProps {}
-
-const Routes: React.FC<IProps> = () => {
+const Routes = observer(() => {
   return (
     <Switch>
       <Route path="/integrals" component={Integrals} />
@@ -16,6 +15,6 @@ const Routes: React.FC<IProps> = () => {
       <Route path="/" component={Index} />
     </Switch>
   );
-};
+});
 
 export default Routes;

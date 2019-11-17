@@ -1,4 +1,5 @@
 import MaterialLink from '@material-ui/core/Link';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -21,8 +22,8 @@ interface IProps {
   gutterBottom?: boolean;
 }
 
-const Link: React.FC<IProps> = props => (
+const Link: React.FC<IProps> = observer(props => (
   <MaterialLink component={RouterLink} {...(props as any)} />
-);
+));
 
 export default Link;
