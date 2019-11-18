@@ -11,7 +11,10 @@ export class Chords {
   public calc() {
     let a = this.a;
     let b = this.b;
-    while (Math.abs(a - b) > this.eps) {
+    while (
+      Math.abs(a - b) > this.eps &&
+      Math.abs(this.f.getValue(a) - this.f.getValue(b)) > this.eps
+    ) {
       a =
         b -
         ((b - a) * this.f.getValue(b)) /

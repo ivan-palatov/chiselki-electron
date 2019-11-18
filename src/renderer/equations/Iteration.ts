@@ -5,31 +5,27 @@ export class Iteration {
 
   constructor(
     public readonly f: Func,
-    public readonly x0: number,
+    public readonly a: number,
+    public readonly b: number,
     public readonly eps: number
   ) {}
 
   public calc() {
     this.i = 0;
-    let xn = this.x0;
-    let x0;
+    let x0 = this.a;
+    let xn = this.b;
 
-    if (
-      Math.abs(this.f.getDerivativeValue(xn)) > 1 ||
-      Math.abs(this.f.getDerivativeValue(this.f.getValue(xn))) > 1
-    ) {
-      console.log('Всё расходится! Ахнунгъ!');
-      return;
-    }
-
-    do {
-      x0 = xn;
+    while (true) {
       xn = this.f.getValue(x0);
       this.i++;
-    } while (
-      Math.abs(this.f.getValue(x0)) > this.eps &&
-      Math.abs(this.f.getValue(x0) - this.f.getValue(xn)) > this.eps
-    );
+      if (
+        Math.abs(xn - x0) <= this.eps ||
+        Math.abs(this.f.getValue(x0) - this.f.getValue(xn)) <= this.eps
+      ) {
+        break;
+      }
+      x0 = xn;
+    }
 
     return xn;
   }

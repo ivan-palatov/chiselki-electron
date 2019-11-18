@@ -15,10 +15,7 @@ export class Newton {
     do {
       x0 = xn;
       xn = x0 - this.f.getValue(x0) / this.f.getDerivativeValue(x0, 1);
-    } while (
-      Math.abs(this.f.getValue(x0)) > this.eps &&
-      Math.abs(this.f.getValue(x0) - this.f.getValue(xn)) > this.eps
-    );
+    } while (Math.abs(this.f.getValue(x0) - this.f.getValue(xn)) > this.eps);
 
     return xn;
   }

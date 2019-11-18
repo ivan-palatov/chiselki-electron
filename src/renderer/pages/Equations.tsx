@@ -29,17 +29,18 @@ const Equations = observer<IProps>(function EquationsComponent() {
     <div className={classes.root}>
       <Title title="Решение уравнений" />
       <Form />
-      {equationStore.isSubmitted && (
-        <Plot
-          data={[
-            equationStore.f!.getPlotData(
-              equationStore.data!.a,
-              equationStore.data!.b
-            ),
-          ]}
-          title="График функции f(x)"
-        />
-      )}
+      {equationStore.isSubmitted &&
+        equationStore.data?.type !== 'iteration' && (
+          <Plot
+            data={[
+              equationStore.f!.getPlotData(
+                equationStore.data!.a,
+                equationStore.data!.b
+              ),
+            ]}
+            title="График функции f(x)"
+          />
+        )}
       {equationStore.method && equationStore.isSubmitted && <Solution />}
     </div>
   );

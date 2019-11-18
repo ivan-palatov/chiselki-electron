@@ -53,6 +53,18 @@ export class EquationStore {
       return;
     }
 
+    if (
+      (this.data.type === 'iteration' &&
+        Math.abs(this.f.getDerivativeValue(data.a)) > 1) ||
+      (this.data.type === 'iteration' &&
+        Math.abs(this.f.getDerivativeValue(data.b)) > 1)
+    ) {
+      const errMessage = `На отрезке [${data.a}, ${data.b}] модуль производной больше единицы`;
+      helpers.setErrors({ a: errMessage, b: errMessage });
+      this.method = undefined;
+      return;
+    }
+
     if (data.type === 'dichotomy') {
       this.method = new Dichotomy(this.f, data.a, data.b, data.eps);
     } else if (data.type === 'chords') {
@@ -60,7 +72,7 @@ export class EquationStore {
     } else if (data.type === 'newton') {
       this.method = new Newton(this.f, data.a, data.b, data.eps);
     } else {
-      this.method = new Iteration(this.f, data.a, data.eps);
+      this.method = new Iteration(this.f, data.a, data.b, data.eps);
     }
   }
 }

@@ -19,10 +19,7 @@ export class Dichotomy {
         x0 +
         Math.sign(this.f.getValue(this.a)) * Math.sign(this.f.getValue(x0)) * h;
       h = h / 2;
-    } while (
-      Math.abs(this.f.getValue(x0)) > this.eps &&
-      Math.abs(this.f.getValue(x0) - this.f.getValue(xn)) > this.eps
-    );
+    } while (Math.abs(this.f.getValue(x0) - this.f.getValue(xn)) > this.eps);
 
     return xn;
   }

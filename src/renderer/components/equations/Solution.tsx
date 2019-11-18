@@ -23,6 +23,8 @@ const Solution = observer<IProps>(function SolutionComponent() {
   const classes = useStyles();
   const { equationStore } = useStore();
 
+  const isIter = equationStore.data?.type === 'iteration';
+
   return (
     <div className={classes.root}>
       <Typography variant="h5" component="h2" gutterBottom>
@@ -35,9 +37,14 @@ const Solution = observer<IProps>(function SolutionComponent() {
         </b>{' '}
         уравнение
       </Typography>
-      <BlockMath>{String.raw`${equationStore.f!.LaTeX()} = 0`}</BlockMath>
+      <BlockMath>{String.raw`${equationStore.f!.LaTeX()} = ${
+        isIter ? 'x' : '0'
+      }`}</BlockMath>
       <Typography>Имеет следующий корень:</Typography>
       <BlockMath>{String.raw`x \approx ${equationStore.method.calc()}`}</BlockMath>
+      {isIter && (
+        <Typography>Количество итераций: {equationStore.method.i}</Typography>
+      )}
       <BlockMath>{String.raw`\varepsilon = ${
         equationStore.data!.eps
       }`}</BlockMath>
