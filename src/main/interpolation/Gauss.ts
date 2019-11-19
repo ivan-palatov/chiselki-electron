@@ -1,41 +1,45 @@
+import { Func } from 'common/Func';
 import { range } from 'mathjs';
 import { PlotData } from 'plotly.js';
-import { Func } from '../common/Func';
 
-export class Linear {
-  public name = 'linear';
-
+export class Gauss {
   private readonly h: number;
   private readonly arr: Array<{ x: number; y: number }>;
-
   private points = { x: [] as number[], y: [] as number[] };
+
+  private del: [number, number];
+  private del2: number;
 
   constructor(
     public readonly f: Func,
     public readonly a: number,
-    public readonly b: number,
-    public readonly n: number
+    public readonly b: number
   ) {
-    this.h = (b - a) / n;
-    this.arr = [...Array(this.n + 1)].map((_, i) => ({
+    this.h = (b - a) / 2;
+    this.arr = [...Array(3)].map((_, i) => ({
       y: this.f.getValue(this.a + this.h * i),
       x: this.a + this.h * i,
     }));
+
+    this.del = [this.arr[1].y - this.arr[0].y, this.arr[2].y - this.arr[1].y];
+    this.del2 = this.del[1] - this.del[0];
 
     this.points.x = range(a, b, (b - a) / 200, true).toArray() as number[];
     this.points.y = this.points.x.map(x => this.getValueInPoint(x));
   }
 
   public getPlotData() {
-    return {
-      x: this.points.x,
-      y: this.points.y,
-      type: 'scatter',
-      name: 'Линейный сплайн',
-    } as Partial<PlotData>;
+    return [
+      {
+        x: this.points.x,
+        y: this.points.y,
+        type: 'scatter',
+        name: 'Формула Гаусса',
+      },
+    ] as Array<Partial<PlotData>>;
   }
 
-  public getPracticalRnData() {
+  public getRnData() {
     return {
       x: this.points.x,
       y: this.points.y.map((y, i) =>
@@ -47,13 +51,8 @@ export class Linear {
   }
 
   private getValueInPoint(xi: number) {
-    const highIndex = this.arr.findIndex(({ x }) => x + this.h > xi) + 1;
+    const t = (xi - this.arr[0].x) / this.h;
 
-    return (
-      this.arr[highIndex].y +
-      ((this.arr[highIndex].x - xi) *
-        (this.arr[highIndex - 1].y - this.arr[highIndex].y)) /
-        this.h
-    );
+    return this.arr[0].y + this.del[0] * t + (this.del2 * t * (t - 1)) / 2;
   }
 }

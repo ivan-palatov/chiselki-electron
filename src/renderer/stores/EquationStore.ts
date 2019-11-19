@@ -1,6 +1,6 @@
+import { Func } from 'common/Func';
 import { FormikHelpers } from 'formik';
 import { action, computed, observable } from 'mobx';
-import { Func } from '../common/Func';
 import { Chords } from '../equations/Chords';
 import { Dichotomy } from '../equations/Dichotomy';
 import { Iteration } from '../equations/Iteration';

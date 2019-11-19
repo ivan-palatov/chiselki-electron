@@ -1,11 +1,9 @@
+import { calcFactorial } from 'common/calcFactorial';
+import { Func } from 'common/Func';
 import { range } from 'mathjs';
 import { PlotData } from 'plotly.js';
-import { calcFactorial } from '../common/calcFactorial';
-import { Func } from '../common/Func';
 
 export class Lagrange {
-  public name = 'lagr';
-
   private readonly h: number;
   private readonly arr: Array<{ x: number; y: number }>;
 
@@ -36,7 +34,11 @@ export class Lagrange {
     } as Partial<PlotData>;
   }
 
-  public getPracticalRnData() {
+  public getRnData() {
+    return [this.getPracticalRnData(), this.getTheoreticalRnData()];
+  }
+
+  private getPracticalRnData() {
     return {
       x: this.points.x,
       y: this.points.y.map((y, i) =>
@@ -47,7 +49,7 @@ export class Lagrange {
     } as Partial<PlotData>;
   }
 
-  public getTheoreticalRnData() {
+  private getTheoreticalRnData() {
     const max = Math.max(
       ...this.points.x.map(x =>
         Math.abs(this.f.getDerivativeValue(x, this.n + 1))

@@ -17,21 +17,11 @@ const InrerpolationPlot = observer<IProps>(
               interpStore.data!.a,
               interpStore.data!.b
             ),
-            interpStore.method.getPlotData(),
+            interpStore.plotData!,
           ]}
           title="Сравнение функций"
         />
-        <Plot
-          data={
-            interpStore.method.name === 'lagr'
-              ? [
-                  interpStore.method.getPracticalRnData(),
-                  interpStore.method.getTheoreticalRnData(),
-                ]
-              : [interpStore.method.getPracticalRnData()]
-          }
-          title="График погрешностей"
-        />
+        <Plot data={[...interpStore.rnData!]} title="График погрешностей" />
       </>
     );
   }

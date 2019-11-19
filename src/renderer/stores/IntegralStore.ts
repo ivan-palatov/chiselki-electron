@@ -1,5 +1,5 @@
+import { Func } from 'common/Func';
 import { action, observable } from 'mobx';
-import { Func } from '../common/Func';
 import { Base } from '../integrals/classes/Base';
 import { createQuad } from '../integrals/createQuad';
 import { makeParams } from '../integrals/makeParams';

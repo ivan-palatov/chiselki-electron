@@ -34,7 +34,7 @@
     ]
   },
   "build": {
-    "appId": "com.chiselki.app",
+    "appId": "com.zver3d.numerical.methods",
     "productName": "Численные Методы",
     "copyright": "Copyright © 2019 Ivan Palatov",
     "win": {

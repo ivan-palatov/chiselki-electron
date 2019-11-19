@@ -1,5 +1,5 @@
+import { Func } from 'common/Func';
 import { PlotData } from 'plotly.js';
-import { Func } from '../../common/Func';
 import { IQuadParams } from '../makeParams';
 
 export class Base {

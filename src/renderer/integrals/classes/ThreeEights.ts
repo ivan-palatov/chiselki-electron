@@ -1,4 +1,4 @@
-import { Func } from '../../common/Func';
+import { Func } from 'common/Func';
 import { IQuadParams, makeParams } from '../makeParams';
 import { Base } from './Base';
 

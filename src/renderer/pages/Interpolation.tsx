@@ -26,7 +26,7 @@ const Interpolation = observer(function InterpolationComponent() {
     <div className={classes.root}>
       <Title title="Интерполирование" />
       <Form />
-      {interpStore.isSubmitted && <InrerpolationPlot />}
+      {interpStore.status === 'done' && <InrerpolationPlot />}
     </div>
   );
 });
