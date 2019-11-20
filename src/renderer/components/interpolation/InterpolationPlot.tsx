@@ -11,17 +11,8 @@ const InrerpolationPlot = observer<IProps>(
 
     return (
       <>
-        <Plot
-          data={[
-            interpStore.f!.getPlotData(
-              interpStore.data!.a,
-              interpStore.data!.b
-            ),
-            interpStore.plotData!,
-          ]}
-          title="Сравнение функций"
-        />
-        <Plot data={[...interpStore.rnData!]} title="График погрешностей" />
+        <Plot data={interpStore.plotData!} title="Сравнение функций" />
+        <Plot data={interpStore.rnData!} title="График погрешностей" />
       </>
     );
   }

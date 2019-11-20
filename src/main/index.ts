@@ -1,7 +1,6 @@
 import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import { format as formatUrl } from 'url';
-import { initIpcRoutes } from './ipcRoutes';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -10,7 +9,7 @@ let mainWindow: BrowserWindow | null;
 
 function createMainWindow() {
   const window = new BrowserWindow({
-    webPreferences: { nodeIntegration: true },
+    webPreferences: { nodeIntegration: true, experimentalFeatures: true },
     width: 800,
     height: 600,
     minWidth: 540,
@@ -67,5 +66,3 @@ app.on('activate', () => {
 app.on('ready', () => {
   mainWindow = createMainWindow();
 });
-
-initIpcRoutes();

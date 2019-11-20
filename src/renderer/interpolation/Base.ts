@@ -2,11 +2,12 @@ import { Func } from 'common/Func';
 import { range } from 'mathjs';
 import { PlotData } from 'plotly.js';
 
-export class Linear {
-  private readonly h: number;
-  private readonly arr: Array<{ x: number; y: number }>;
+export class Base {
+  public name = 'Base';
 
-  private points = { x: [] as number[], y: [] as number[] };
+  protected readonly h: number;
+  protected readonly arr: Array<{ x: number; y: number }>;
+  protected points = { x: [] as number[], y: [] as number[] };
 
   constructor(
     public readonly f: Func,
@@ -19,9 +20,6 @@ export class Linear {
       y: this.f.getValue(this.a + this.h * i),
       x: this.a + this.h * i,
     }));
-
-    this.points.x = range(a, b, (b - a) / 200, true).toArray() as number[];
-    this.points.y = this.points.x.map(x => this.getValueInPoint(x));
   }
 
   public getPlotData() {
@@ -29,7 +27,7 @@ export class Linear {
       x: this.points.x,
       y: this.points.y,
       type: 'scatter',
-      name: 'Линейный сплайн',
+      name: this.name,
     } as Partial<PlotData>;
   }
 
@@ -46,14 +44,17 @@ export class Linear {
     ] as Array<Partial<PlotData>>;
   }
 
-  private getValueInPoint(xi: number) {
-    const highIndex = this.arr.findIndex(({ x }) => x + this.h > xi) + 1;
+  protected calcValues() {
+    this.points.x = range(
+      this.a,
+      this.b,
+      (this.b - this.a) / 200,
+      true
+    ).toArray() as number[];
+    this.points.y = this.points.x.map(x => this.getValueInPoint(x));
+  }
 
-    return (
-      this.arr[highIndex].y +
-      ((this.arr[highIndex].x - xi) *
-        (this.arr[highIndex - 1].y - this.arr[highIndex].y)) /
-        this.h
-    );
+  protected getValueInPoint(x: number) {
+    return 0;
   }
 }
