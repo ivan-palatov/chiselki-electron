@@ -41,9 +41,9 @@ const Solution = observer<IProps>(function SolutionComponent() {
         isIter ? 'x' : '0'
       }`}</BlockMath>
       <Typography>Имеет следующий корень:</Typography>
-      <BlockMath>{String.raw`x \approx ${equationStore.method.calc()}`}</BlockMath>
+      <BlockMath>{String.raw`x \approx ${equationStore.result}`}</BlockMath>
       {isIter && (
-        <Typography>Количество итераций: {equationStore.method.i}</Typography>
+        <Typography>Количество итераций: {equationStore.iterNum}</Typography>
       )}
       <BlockMath>{String.raw`\varepsilon = ${
         equationStore.data!.eps

@@ -29,7 +29,7 @@ const Integrals = observer<IProps>(function IntegralsComponent() {
     <div className={classes.root}>
       <Title title="Вычисление интегралов" />
       <Form />
-      {integralStore.isSubmitted && (
+      {integralStore.status === 'done' && (
         <Plot
           title="График подинтегральной функции"
           data={[

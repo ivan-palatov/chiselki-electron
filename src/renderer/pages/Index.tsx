@@ -24,8 +24,7 @@ const Index = observer(() => {
 
   const euler = new Euler('(y^2 - 1)/x', 0.1, 1, 0.1, 0);
   console.log('Эйлер: ');
-  console.log(euler.calc());
-  console.log(euler.calcBetter(0.00001));
+  console.log(euler.calc(0.00001));
   const runge = new Runge('(y^2 - 1)/x', 0.1, 1, 0.1, 0);
   console.log('Рунге: ');
   console.log(runge.calc());

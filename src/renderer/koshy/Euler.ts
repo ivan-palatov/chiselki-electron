@@ -10,19 +10,7 @@ export class Euler {
     private readonly y0: number
   ) {}
 
-  public calc() {
-    const length = Math.round((this.b - this.a) / this.h);
-    const arr = [{ x: this.a, y: this.y0 }];
-
-    for (let i = 1; i <= length; i++) {
-      const { x, y } = arr[i - 1];
-      arr.push({ x: x + this.h, y: y + this.h * evaluate(this.f, { x, y }) });
-    }
-
-    return arr;
-  }
-
-  public calcBetter(eps: number) {
+  public calc(eps: number) {
     const length = Math.round((this.b - this.a) / this.h);
     const arr = [{ x: this.a, y: this.y0 }];
 

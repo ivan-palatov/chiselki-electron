@@ -29,7 +29,7 @@ const Equations = observer<IProps>(function EquationsComponent() {
     <div className={classes.root}>
       <Title title="Решение уравнений" />
       <Form />
-      {equationStore.isSubmitted &&
+      {['done', 'error'].includes(equationStore.status) &&
         equationStore.data?.type !== 'iteration' && (
           <Plot
             data={[
@@ -41,7 +41,7 @@ const Equations = observer<IProps>(function EquationsComponent() {
             title="График функции f(x)"
           />
         )}
-      {equationStore.method && equationStore.isSubmitted && <Solution />}
+      {equationStore.status === 'done' && <Solution />}
     </div>
   );
 });

@@ -21,9 +21,16 @@ export const equationMethods = [
   { value: 'iteration', label: 'Метод простых итераций' },
 ];
 
+const map = new Map<string, typeof Chords>([
+  ['chords', Chords],
+  ['dichotomy', Dichotomy],
+  ['newton', Newton],
+  ['iteration', Iteration],
+]);
+
 export class EquationStore {
   @observable
-  public isSubmitted = false;
+  public status: 'idle' | 'error' | 'done' = 'idle';
 
   @observable
   public f: Func | null = null;
@@ -32,7 +39,10 @@ export class EquationStore {
   public data: IData | null = null;
 
   @observable
-  public method: any;
+  public result?: number;
+
+  @observable
+  public iterNum?: number;
 
   @computed
   public get label() {
@@ -42,14 +52,13 @@ export class EquationStore {
 
   @action.bound
   public handleSubmit(data: IData, helpers: FormikHelpers<IData>) {
-    this.isSubmitted = true;
     this.data = data;
     this.f = new Func(data.f);
 
     if (this.f.getValue(data.a) * this.f.getValue(data.b) > 0) {
       const errMessage = `На отрезке [${data.a}, ${data.b}] нет корней либо их больше одного`;
       helpers.setErrors({ a: errMessage, b: errMessage });
-      this.method = undefined;
+      this.status = 'error';
       return;
     }
 
@@ -61,18 +70,16 @@ export class EquationStore {
     ) {
       const errMessage = `На отрезке [${data.a}, ${data.b}] модуль производной больше единицы`;
       helpers.setErrors({ a: errMessage, b: errMessage });
-      this.method = undefined;
+      this.status = 'error';
       return;
     }
 
-    if (data.type === 'dichotomy') {
-      this.method = new Dichotomy(this.f, data.a, data.b, data.eps);
-    } else if (data.type === 'chords') {
-      this.method = new Chords(this.f, data.a, data.b, data.eps);
-    } else if (data.type === 'newton') {
-      this.method = new Newton(this.f, data.a, data.b, data.eps);
-    } else {
-      this.method = new Iteration(this.f, data.a, data.b, data.eps);
+    const Method = map.get(data.type)!;
+    const instance = new Method(this.f, data.a, data.b, data.eps);
+    this.result = instance.calc();
+    if (data.type === 'iteration') {
+      this.iterNum = (instance as any).i;
     }
+    this.status = 'done';
   }
 }

@@ -1,7 +1,13 @@
 import { Func } from 'common/Func';
 import { action, observable } from 'mobx';
 import { Base } from '../integrals/classes/Base';
-import { createQuad } from '../integrals/createQuad';
+import { CenterRect } from '../integrals/classes/CenterRect';
+import { Gauss } from '../integrals/classes/Gauss';
+import { LeftRect } from '../integrals/classes/LeftRect';
+import { RightRect } from '../integrals/classes/RightRect';
+import { Simpson } from '../integrals/classes/Simpson';
+import { ThreeEights } from '../integrals/classes/ThreeEights';
+import { Trapezi } from '../integrals/classes/Trapezi';
 import { makeParams } from '../integrals/makeParams';
 
 interface IData {
@@ -11,6 +17,16 @@ interface IData {
   n: number;
   quad: string[];
 }
+
+const map = new Map<string, typeof Base>([
+  ['lrect', LeftRect],
+  ['rrect', RightRect],
+  ['crect', CenterRect],
+  ['trapezi', Trapezi],
+  ['simpson', Simpson],
+  ['te', ThreeEights],
+  ['gauss', Gauss],
+]);
 
 export class IntegralStore {
   @observable
@@ -23,19 +39,19 @@ export class IntegralStore {
   public range: [number, number] = [0, 0];
 
   @observable
-  public isSubmitted = false;
+  public status: 'idle' | 'done' = 'idle';
 
   @action.bound
   public handleSubmit({ f, n, a, b, quad }: IData) {
     this.quads = [];
-    this.isSubmitted = true;
+    this.status = 'done';
     this.range = [a, b];
 
     this.f = new Func(f);
     const params = makeParams(n, a, b);
 
     for (const q of quad) {
-      const Quad = createQuad(q);
+      const Quad = map.get(q)!;
       this.quads.push(new Quad(this.f, params));
     }
   }
