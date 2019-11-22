@@ -48,7 +48,7 @@ export class Base {
     this.points.x = range(
       this.a,
       this.b,
-      (this.b - this.a) / 200,
+      (this.b - this.a) / 180,
       true
     ).toArray() as number[];
     this.points.y = this.points.x.map(x => this.getValueInPoint(x));

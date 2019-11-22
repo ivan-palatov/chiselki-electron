@@ -5,11 +5,13 @@ import { Base } from '../interpolation/Base';
 import { Gauss } from '../interpolation/Gauss';
 import { Lagrange } from '../interpolation/Lagrange';
 import { Linear } from '../interpolation/Linear';
+import { Qubic } from '../interpolation/Qubic';
 
 const map = new Map<string, typeof Base>([
   ['lagr', Lagrange],
   ['gauss', Gauss],
   ['linear', Linear],
+  ['qubic', Qubic],
 ]);
 
 interface IData {

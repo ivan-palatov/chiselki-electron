@@ -1,10 +1,9 @@
 import { createStyles, makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router';
 import Link from '../components/Link';
-import { Koshy } from '../koshy/Koshy';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -21,16 +20,6 @@ const useStyles = makeStyles(theme =>
 const Index = observer(() => {
   const classes = useStyles();
 
-  useEffect(() => {
-    const koshy = new Koshy('(y^2 - 1)/x', 0.1, 1, 0.1, 0);
-    console.log('Эйлер:');
-    console.log(koshy.calcEuler(0.000001));
-    console.log('Рунге:');
-    console.log(koshy.calcRunge());
-    console.log('Адамс:');
-    console.log(koshy.calcAdams());
-  }, []);
-
   return (
     <div className={classes.root}>
       <Typography variant="h4" component="h1" gutterBottom>
@@ -44,6 +33,9 @@ const Index = observer(() => {
       </Link>
       <Link to="/equations" variant="h6">
         Нахождение корней уравнений
+      </Link>
+      <Link to="/koshy" variant="h6">
+        Решение задачи Коши
       </Link>
     </div>
   );

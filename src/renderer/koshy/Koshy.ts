@@ -8,9 +8,23 @@ export class Koshy {
     private readonly a: number,
     private readonly b: number,
     private readonly h: number,
-    private readonly y0: number
+    private readonly y0: number,
+    private readonly eps: number
   ) {
     this.length = Math.round((this.b - this.a) / this.h);
+  }
+
+  public makeTableData() {
+    const euler = this.calcEuler();
+    const runge = this.calcRunge();
+    const adams = this.calcAdams();
+
+    return euler.map(({ x, y }, i) => ({
+      x: parseFloat(x.toFixed(6)),
+      euler: parseFloat(y.toFixed(8)),
+      runge: parseFloat(runge[i].y.toFixed(8)),
+      adams: parseFloat(adams[i].y.toFixed(8)),
+    }));
   }
 
   public calcAdams() {
@@ -62,7 +76,7 @@ export class Koshy {
     return arr;
   }
 
-  public calcEuler(eps: number) {
+  public calcEuler() {
     const arr = [{ x: this.a, y: this.y0 }];
 
     for (let i = 1; i <= this.length; i++) {
@@ -73,7 +87,7 @@ export class Koshy {
       let y1;
       while (true) {
         y1 = y + (this.h / 2) * (this.fVal(x, y) + this.fVal(newX, y0));
-        if (Math.abs(y0 - y1) < eps) {
+        if (Math.abs(y0 - y1) < this.eps) {
           break;
         }
         y0 = y1;

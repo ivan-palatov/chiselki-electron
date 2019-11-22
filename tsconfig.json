@@ -1,11 +1,11 @@
 {
   "extends": "./node_modules/electron-webpack/tsconfig-base.json",
   "compilerOptions": {
-    "lib": ["dom", "esnext", "webworker"],
+    "lib": ["dom", "esnext"],
     "jsx": "react",
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      "common/*": ["src/common/*"]
+      "common/*": ["common/*"]
     }
   }
 }

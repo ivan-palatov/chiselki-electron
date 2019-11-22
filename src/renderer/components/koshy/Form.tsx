@@ -6,14 +6,6 @@ import React from 'react';
 import * as yup from 'yup';
 import { useStore } from '../../stores/RootContext';
 import Input from '../Input';
-import Select from '../Select';
-
-const options = [
-  { value: 'lagr', label: 'Метод Лагранжа' },
-  { value: 'gauss', label: 'Метод Гаусса' },
-  { value: 'linear', label: 'Линейный сплайн' },
-  { value: 'qubic', label: 'Кубический сплайн' },
-];
 
 interface IProps {}
 
@@ -45,32 +37,32 @@ const validationSchema = yup.object({
   b: yup
     .number()
     .moreThan(yup.ref('a'), 'Конец отрезка должен быть больше начала'),
-  n: yup
-    .number()
-    .integer('Число должно быть целым')
-    .moreThan(0, 'Число должно быть больше нуля'),
+  h: yup.number().moreThan(0, 'Шаг сетки должен быть больше нуля'),
+  y0: yup.number().required('Необходимо указать значение y(a)'),
+  eps: yup.number().moreThan(0, 'Погрешность должна быть больше нуля'),
 });
 
 const Form = observer<IProps>(function FormComponent() {
   const classes = useStyles();
-  const { interpStore } = useStore();
+  const { koshyStore } = useStore();
 
   return (
     <Formik
       initialValues={{
-        f: 'sin(cos(exp(x)))',
-        a: -2,
+        f: '(y^2 - 1)/x',
+        a: 0.1,
         b: 1,
-        n: 3,
-        type: 'lagr',
+        h: 0.1,
+        y0: 0,
+        eps: 0.00001,
       }}
+      onSubmit={koshyStore.handleSubmit}
       validationSchema={validationSchema}
-      onSubmit={interpStore.handleSubmit}
     >
       {data => (
         <FormikForm noValidate className={classes.root}>
           <Input
-            label="Исходная функция"
+            label="Функция f(x,y) из условия y' = f(x, y)"
             name="f"
             type="input"
             className={classes.input}
@@ -79,26 +71,36 @@ const Form = observer<IProps>(function FormComponent() {
             label="Начало отрезка"
             name="a"
             type="number"
+            step={0.1}
             className={classes.input}
           />
           <Input
             label="Конец отрезка"
             name="b"
             type="number"
+            step={0.1}
             className={classes.input}
           />
           <Input
-            label="Количество разбиений"
-            name="n"
+            label="Шаг сетки"
+            name="h"
             type="number"
+            step={0.1}
             className={classes.input}
           />
-          <Select
-            name="type"
-            type="select"
+          <Input
+            label={`Значение y(${data.values.a})`}
+            name="y0"
+            type="number"
+            step={0.1}
             className={classes.input}
-            label="Метод инерполирования"
-            options={options}
+          />
+          <Input
+            label="Погрешность &#949;"
+            name="eps"
+            type="number"
+            helperText="Используется только для метода Эйлера"
+            className={classes.input}
           />
           <div className={classes.buttonsContainer}>
             <Button type="submit" color="primary" variant="contained">
