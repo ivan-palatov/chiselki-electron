@@ -3,9 +3,11 @@
   "compilerOptions": {
     "lib": ["dom", "esnext"],
     "jsx": "react",
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
-      "common/*": ["common/*"]
+      "@/renderer/*": ["src/renderer/*"],
+      "@/main/*": ["src/main/*"],
+      "common/*": ["src/common/*"]
     }
   }
 }

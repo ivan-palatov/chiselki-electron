@@ -10,14 +10,20 @@ import { useStore } from '../../stores/RootContext';
 
 interface IProps {}
 
-const useStyles = makeStyles(theme => createStyles({}));
+const useStyles = makeStyles(theme =>
+  createStyles({
+    root: {
+      width: '90%',
+    },
+  })
+);
 
 const Solution = observer<IProps>(function SolutionComponent() {
   const classes = useStyles();
   const { koshyStore } = useStore();
 
   return (
-    <Table aria-label="Таблица результатов">
+    <Table aria-label="Таблица результатов" className={classes.root}>
       <TableHead>
         <TableRow>
           <TableCell>

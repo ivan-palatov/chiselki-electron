@@ -6,6 +6,7 @@ import React from 'react';
 import * as yup from 'yup';
 import { useStore } from '../../stores/RootContext';
 import Input from '../Input';
+import Select from '../Select';
 
 interface IProps {}
 
@@ -28,6 +29,11 @@ const useStyles = makeStyles(theme =>
     },
   })
 );
+
+const options = [
+  { value: 'plot', label: 'График' },
+  { value: 'table', label: 'Таблица' },
+];
 
 const validationSchema = yup.object({
   f: yup.string().required('Необходимо указать функцию'),
@@ -55,6 +61,7 @@ const Form = observer<IProps>(function FormComponent() {
         h: 0.1,
         y0: 0,
         eps: 0.00001,
+        solution: 'table',
       }}
       onSubmit={koshyStore.handleSubmit}
       validationSchema={validationSchema}
@@ -101,6 +108,13 @@ const Form = observer<IProps>(function FormComponent() {
             type="number"
             helperText="Используется только для метода Эйлера"
             className={classes.input}
+          />
+          <Select
+            name="solution"
+            type="select"
+            label="Вид результата"
+            className={classes.input}
+            options={options}
           />
           <div className={classes.buttonsContainer}>
             <Button type="submit" color="primary" variant="contained">

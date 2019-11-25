@@ -64,8 +64,8 @@ export class Koshy {
       const newX = x + this.h;
 
       const k1 = this.h * this.fVal(x, y);
-      const k2 = this.h * this.fVal(newX / 2, y + k1 / 2);
-      const k3 = this.h * this.fVal(newX / 2, y + k2 / 2);
+      const k2 = this.h * this.fVal(x + this.h / 2, y + k1 / 2);
+      const k3 = this.h * this.fVal(x + this.h / 2, y + k2 / 2);
       const k4 = this.h * this.fVal(newX, y + k3);
 
       const yNext = y + (k1 + 2 * (k2 + k3) + k4) / 6;

@@ -38,11 +38,13 @@ export class InterpolationStore {
   @action.bound
   public async handleSubmit(data: IData) {
     this.data = data;
+    
     const Method = map.get(data.type)!;
     const f = new Func(data.f);
     const inst = new Method(f, data.a, data.b, data.n);
-    this.status = 'done';
+
     this.plotData = [f.getPlotData(data.a, data.b), inst.getPlotData()];
     this.rnData = inst.getRnData();
+    this.status = 'done';
   }
 }

@@ -1,5 +1,6 @@
 import { Func } from 'common/Func';
-import { action, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
+import { PlotData } from 'plotly.js';
 import { Koshy } from '../koshy/Koshy';
 
 interface IData {
@@ -9,6 +10,7 @@ interface IData {
   h: number;
   y0: number;
   eps: number;
+  solution: string;
 }
 
 interface IResult {
@@ -26,10 +28,34 @@ export class KoshyStore {
   public data?: IData;
 
   @observable
-  public result?: IResult[];
+  public result: IResult[] = [];
 
   @observable
   public LaTeX?: string;
+
+  @computed
+  public get plotData() {
+    return [
+      {
+        x: this.result.map(({ x }) => x),
+        y: this.result.map(({ euler }) => euler),
+        type: 'scatter',
+        name: 'Эйлер',
+      },
+      {
+        x: this.result.map(({ x }) => x),
+        y: this.result.map(({ runge }) => runge),
+        type: 'scatter',
+        name: 'Рунге-Кутт',
+      },
+      {
+        x: this.result.map(({ x }) => x),
+        y: this.result.map(({ adams }) => adams),
+        type: 'scatter',
+        name: 'Адамс',
+      },
+    ] as Array<Partial<PlotData>>;
+  }
 
   @action.bound
   public handleSubmit(data: IData) {
